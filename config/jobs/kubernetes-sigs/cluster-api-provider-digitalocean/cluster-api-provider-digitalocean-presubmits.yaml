@@ -6,11 +6,11 @@ presubmits:
     path_alias: sigs.k8s.io/cluster-api-provider-digitalocean
     spec:
       containers:
-      - image: golang:1.11
+      - image: gcr.io/k8s-testimages/kubekins-e2e:v20200131-0997840-master
         command:
         - make
         args:
-        - compile
+        - manager
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-cluster-api-provider-digitalocean
       testgrid-tab-name: build
@@ -20,11 +20,11 @@ presubmits:
     path_alias: sigs.k8s.io/cluster-api-provider-digitalocean
     spec:
       containers:
-      - image: golang:1.11
+      - image: gcr.io/k8s-testimages/kubekins-e2e:v20200131-0997840-master
         command:
         - make
         args:
-        - test-unit
+        - test
     annotations:
       testgrid-dashboards: sig-cluster-lifecycle-cluster-api-provider-digitalocean
       testgrid-tab-name: test
@@ -48,7 +48,7 @@ presubmits:
     path_alias: sigs.k8s.io/cluster-api-provider-digitalocean
     spec:
       containers:
-      - image: quay.io/kubermatic/gometalinter:latest
+      - image: gcr.io/k8s-testimages/kubekins-e2e:v20200131-0997840-master
         command:
         - make
         args:
