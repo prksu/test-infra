@@ -1,0 +1,30 @@
+periodics:
+- name: ci-cluster-api-provider-digitalocean-e2e-master
+  decorate: true
+  decoration_config:
+    timeout: 5h
+  interval: 24h
+  labels:
+    preset-dind-enabled: "true"
+    preset-kind-volume-mounts: "true"
+    preset-do-credential: "true"
+  extra_refs:
+  - org: kubernetes-sigs
+    repo: cluster-api-provider-digitalocean
+    base_ref: master
+    path_alias: "sigs.k8s.io/cluster-api-provider-digitalocean"
+  spec:
+    containers:
+    - image: gcr.io/k8s-testimages/kubekins-e2e:v20200929-82b41a1-master
+      command:
+        - "runner.sh"
+        - "./scripts/ci-e2e.sh"
+      securityContext:
+        privileged: true
+      resources:
+        requests:
+          cpu: 1
+          memory: "4Gi"
+  annotations:
+    testgrid-dashboards: sig-cluster-lifecycle-cluster-api-provider-digitalocean
+    testgrid-tab-name: ci-e2e-master
